@@ -27,6 +27,7 @@ BlogRouter.use("/*", async (c, next) => {
   const token = headers.split(" ")[1];
   try {
     const decoded = await verify(token, c.env.JWT_SECRET);
+    c.set("userId", decoded.id);
     await next();
   } catch {
     return c.json({
@@ -35,41 +36,78 @@ BlogRouter.use("/*", async (c, next) => {
   }
 });
 
-
 BlogRouter.post("/add", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL,
   }).$extends(withAccelerate());
 
+  const userId = c.get("userId");
   const body = await c.req.json();
-  const blog = await prisma.post.create({
-    data:{
-      title:body.title,
-      content:body.content,
-      published:body.published,
-      authorId:body.authorId,
-    }
-  })
+  const post = await prisma.post.create({
+    data: {
+      title: body.title,
+      content: body.content,
+      published: body.published,
+      authorId: userId,
+    },
+  });
   return c.json({
-    message: 'Blog created successfully',
-    id: blog.id
-  })
+    message: "Blog created successfully",
+    id: post.id,
+  });
 });
 
-
-BlogRouter.put("/update", (c) => {
+BlogRouter.put("/update", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL,
   }).$extends(withAccelerate());
+
+  const userId = c.get("userId");
+  const body = await c.req.json();
+  const updated = await prisma.post.update({
+    where: {
+      id: body.id,
+      authorId: userId,
+    },
+    data: {
+      title: body.title,
+      content: body.content,
+      published: body.published,
+    },
+  });
+
+  return c.text("Updated successfully!");
+});
+
+BlogRouter.get("/bulk", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const allpost = await prisma.post.findMany();
+
+  return c.json({
+    posts: allpost,
+  });
   
 
-});
+  BlogRouter.get("/:id", async (c) => {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env?.DATABASE_URL,
+    }).$extends(withAccelerate());
 
-BlogRouter.get("/:id", (c) => {
-  const id = c.req.param("id");
-  return c.text("get blog route");
-});
+    const id = c.req.param("id");
+    const userId = c.get("userId");
 
-BlogRouter.get("/bulk", (c) => {
-  return c.text("blog bulk route");
+    const post = await prisma.post.findUnique({
+      where: {
+        id: id,
+        authorId: userId,
+      },
+    });
+
+    return c.json({
+      post: post,
+    });
+  });
 });
