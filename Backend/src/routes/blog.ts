@@ -106,6 +106,7 @@ BlogRouter.get("/bulk", async (c) => {
   }).$extends(withAccelerate());
   const allpost = await prisma.post.findMany({
     select:{
+      id:true,
       title:true,
       content:true,
       publishDate:true,

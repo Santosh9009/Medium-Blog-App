@@ -13,7 +13,7 @@ export const Blogs = () => {
   return (
     <div className="">
       <Appbar authorname={'someone'}/>
-     {blogs && blogs.map((e,index)=><BlogCard key={index} title={e.title} content={e.content} publishDate={e.publishDate} authorname={e.author.name}/>)}
+     {blogs && blogs.map((e,index)=><BlogCard key={index} title={e.title} content={e.content} publishDate={e.publishDate} authorname={e.author.name} id={e.id}/>)}
     </div>
   )
 }

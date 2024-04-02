@@ -3,10 +3,8 @@ import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../config";
 
 
-
-
 interface Blog {
-  id: number;
+  id: string;
   title: string;
   content: string;
   publishDate: string;
@@ -36,3 +34,24 @@ export const useBlogs = () => {
     loading,
   };
 };
+
+export const useBlog = (id:string)=>{
+  const [blog, setBlog] = useState<Blog>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    axios.get(`${BACKEND_URL}/api/v1/blog/${id}`,{
+      headers: headers
+    }).then((res) => {
+      setBlog(res.data.post);
+      setLoading(false);
+    });
+  }, []);
+
+  return {
+    blog,
+    loading,
+  };
+}

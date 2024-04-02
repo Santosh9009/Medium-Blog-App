@@ -1,12 +1,22 @@
+import { useNavigate } from "react-router-dom";
+
 interface Blog {
-  authorname: string;
-  publishDate: string;
-  title: string;
-  content: string;
+  authorname: string,
+  publishDate: string,
+  title: string,
+  content: string,
+  id:string
 }
-const BlogCard = ({ authorname, publishDate, title, content }: Blog) => {
+const BlogCard = ({ authorname, publishDate, title, content,id }: Blog) => {
+
+  const navigate = useNavigate();
+
+  function navigator():void{
+    navigate(`/blog/${id}`)
+  }
+
   return (
-    <div className="flex flex-col gap-1 my-5 w-[70%] mx-auto">
+    <div onClick={navigator} className="flex flex-col gap-1 my-5 w-[70%] mx-auto">
       <div className="flex items-center gap-2">
         <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2">
           <span className="font-medium text-gray-600 ">
@@ -19,7 +29,7 @@ const BlogCard = ({ authorname, publishDate, title, content }: Blog) => {
       </div>
       <div className="font-bold text-3xl">{title}</div>
       <div className="text-xl font-serif text-gray-700">
-        {content.length >= 100 ? content.slice(0, 100) : content}
+        {content.length >= 100 ? content.slice(0, 100) : content}...
       </div>
       <div className="text-slate-500 font-medium my-5">
         {Math.floor(content.length / 100)} min read
