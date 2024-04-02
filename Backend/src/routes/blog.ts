@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { verify } from "hono/jwt";
-import { Createblog, Updateblog   } from '@santosh_pati/medium-common';
+import { Createblog, Updateblog  } from '@santosh_pati/medium-common';
 
 
 type Environment = {
@@ -59,7 +59,7 @@ BlogRouter.post("/add", async (c) => {
     data: {
       title: body.title,
       content: body.content,
-      published: body.published,
+      publishDate: body.publishDate,
       authorId: userId,
     },
   });
@@ -91,7 +91,7 @@ BlogRouter.put("/update", async (c) => {
     data: {
       title: body.title,
       content: body.content,
-      published: body.published,
+      publishDate: body.publishDate,
     },
   });
 
@@ -104,7 +104,18 @@ BlogRouter.get("/bulk", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env?.DATABASE_URL,
   }).$extends(withAccelerate());
-  const allpost = await prisma.post.findMany();
+  const allpost = await prisma.post.findMany({
+    select:{
+      title:true,
+      content:true,
+      publishDate:true,
+      author:{
+        select:{
+          name:true,
+        }
+      }
+    }
+  });
 
   return c.json({
     posts: allpost,

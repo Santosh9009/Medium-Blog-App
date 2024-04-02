@@ -25,31 +25,31 @@ export declare const SigninSchema: z.ZodObject<{
 export declare const Createblog: z.ZodObject<{
     title: z.ZodString;
     content: z.ZodString;
-    published: z.ZodOptional<z.ZodBoolean>;
+    publishDate: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     title: string;
     content: string;
-    published?: boolean | undefined;
+    publishDate?: string | undefined;
 }, {
     title: string;
     content: string;
-    published?: boolean | undefined;
+    publishDate?: string | undefined;
 }>;
 export declare const Updateblog: z.ZodObject<{
-    title: z.ZodString;
-    content: z.ZodString;
-    id: z.ZodNumber;
-    published: z.ZodOptional<z.ZodBoolean>;
+    id: z.ZodString;
+    title: z.ZodOptional<z.ZodString>;
+    content: z.ZodOptional<z.ZodString>;
+    publishDate: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    title: string;
-    content: string;
-    id: number;
-    published?: boolean | undefined;
+    id: string;
+    title?: string | undefined;
+    content?: string | undefined;
+    publishDate?: string | undefined;
 }, {
-    title: string;
-    content: string;
-    id: number;
-    published?: boolean | undefined;
+    id: string;
+    title?: string | undefined;
+    content?: string | undefined;
+    publishDate?: string | undefined;
 }>;
 export type signuptype = z.infer<typeof SignupSchema>;
 export type signintype = z.infer<typeof SigninSchema>;

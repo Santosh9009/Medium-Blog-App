@@ -20,16 +20,16 @@ export const SigninSchema = z.object({
 export const Createblog = z.object({
   title: z.string(),
   content: z.string(),
-  published: z.boolean().optional(),
+  publishDate: z.string().optional(),
 })
 
 
 //update blog
 export const Updateblog = z.object({
-  title: z.string(),
-  content: z.string(),
-  id: z.number(),
-  published: z.boolean().optional()
+  id: z.string(),
+  title: z.string().optional(),
+  content: z.string().optional(),
+  publishDate: z.string().optional()
 })
 
 
