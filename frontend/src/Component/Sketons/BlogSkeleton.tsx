@@ -4,7 +4,7 @@ export const BlogSkeleton = () => {
   <div className="col-span-2 flex flex-col justify-start items-center py-20 font-serif">
     <div className="flex flex-col gap-10 max-w-4xl mx-auto pr-5">
       <div>
-        <div className="w-56 h-12 bg-gray-100 mb-4"></div>
+        <div className=" w-80 h-12 bg-gray-100 mb-4"></div>
         <div className="w-3/4 h-8 bg-gray-200 mb-3"></div>
         <div className="flex gap-5 items-center md:invisible">
           <div className="w-4 h-4 bg-gray-200 rounded-full"></div>

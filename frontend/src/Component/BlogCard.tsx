@@ -28,8 +28,8 @@ const BlogCard = ({ authorname, publishDate, title, content,id }: Blog) => {
         <div className="text-slate-500 inline-block">{publishDate}</div>
       </div>
       <div className="font-bold text-3xl">{title}</div>
-      <div className="text-xl font-serif text-gray-700">
-        {content.length >= 100 ? content.slice(0, 100) : content}...
+      <div className="text-xl font-serif text-gray-700 line-clamp-2">
+        {content}..
       </div>
       <div className="text-slate-500 font-medium my-5">
         {Math.floor(content.length / 100)} min read
