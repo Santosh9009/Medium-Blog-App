@@ -1,18 +1,42 @@
-import { useBlog } from "../hooks";
+import { useEffect, useState } from "react";
+import { useBlogs } from "../hooks";
 import { useParams } from "react-router-dom";
+import { BlogSkeleton } from "../Component/Sketons/BlogSkeleton";
+
+interface blog {
+  title: string;
+  content: string;
+  publishDate: string;
+  author: {
+    name: string;
+  };
+}
 
 export const Blog = () => {
   const { id } = useParams<{ id: string }>();
-  const { blog, loading } = useBlog(id || " ");
+  // const { blog, loading } = useBlog(id || " ");
+  const { loading, blogs } = useBlogs();
+  const [blog, setBlog] = useState<blog | null>(null);
+
+  useEffect(() => {
+    const post = blogs.find((e) => e.id === id);
+    if (post) {
+      setBlog(post);
+    }
+  });
 
   if (loading) {
-    <div>loading...</div>;
+    return (
+      <div>
+        <BlogSkeleton />
+      </div>
+    );
   }
 
   return (
-    <div className="grid grid-cols-3 scroll">
+    <div className="grid md:grid-cols-3 px-5">
       <div className="col-span-2 flex flex-col justify-start items-center py-20 font-serif">
-        <div className="flex flex-col gap-10 max-w-4xl mx-auto px-10">
+        <div className="flex flex-col gap-10 max-w-4xl mx-auto pr-5">
           <div>
             <div className="font-extrabold text-3xl lg:text-6xl mb-2">
               {blog?.title}
@@ -23,6 +47,12 @@ export const Blog = () => {
                 ? "Dec 23, 2023"
                 : blog?.publishDate}
             </div>
+            <div className="flex gap-5 items-center md:invisible">
+              <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+              <div className="font-semibold text-xl lg:text-3xl">
+                {blog?.author.name || "Anonymous"}
+              </div>
+            </div>
           </div>
           <div className="text-gray-700 text-lg lg:text-lg lg:leading-loose">
             {blog?.content}
@@ -30,15 +60,13 @@ export const Blog = () => {
         </div>
       </div>
       <div className="col-span-1">
-        <div className="h-full flex flex-col justify-start items-start my-40 mx-10 gap-5 font-medium">
-          <div>
-            Author
-          </div>
+        <div className="md:visible invisible h-full flex flex-col justify-start items-start my-40 gap-3 font-medium px-auto overflow-hidden">
+          <div>Author</div>
           <div className="flex gap-5 items-center">
-            <div className="w-5 h-5 bg-gray-300 rounded-full"></div>
-          <div className="font-semibold text-2xl lg:text-3xl">
-            {blog?.author.name || "Anonymous"}
-          </div>
+            <div className="md:w-5 md:h-5 bg-gray-300 rounded-full"></div>
+            <div className="font-semibold text-xl lg:text-3xl">
+              {blog?.author.name || "Anonymous"}
+            </div>
           </div>
         </div>
       </div>

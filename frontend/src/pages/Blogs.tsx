@@ -1,6 +1,6 @@
 import Appbar from "../Component/Appbar"
 import BlogCard from "../Component/BlogCard"
-import { BlogsSkeleton } from "../Component/BlogsSkeleton";
+import { BlogsSkeleton } from "../Component/Sketons/BlogsSkeleton";
 import { useBlogs } from "../hooks"
 
 
