@@ -39,7 +39,7 @@ export const Blog = () => {
     <Appbar authorname={'Harish'}/>
     <div className="grid md:grid-cols-3 px-5">
       <div className="col-span-2 flex flex-col justify-start items-center py-20 font-serif">
-        <div className="flex flex-col gap-10 max-w-4xl mx-auto pr-5">
+        <div className="flex flex-col gap-10 max-w-4xl mx-auto px-5">
           <div>
             <div className="font-extrabold text-3xl lg:text-6xl mb-2">
               {blog?.title}

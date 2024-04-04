@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Appbar from '../Component/Appbar';
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
@@ -23,6 +24,8 @@ const Profile = () => {
 
 
   return (
+    <>
+    <Appbar/>
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
@@ -106,6 +109,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
