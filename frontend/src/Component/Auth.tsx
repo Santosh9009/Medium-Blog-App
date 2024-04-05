@@ -3,6 +3,7 @@ import { signuptype } from "@santosh_pati/medium-common";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
+import { getRandomColor } from "../assets/Color"
 
 export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
         `${BACKEND_URL}/api/v1/user/${type === "Signup" ? "signup" : "signin"}`,postInputs);
       const jwt = response.data.token;
       localStorage.setItem("token", jwt);
+      localStorage.setItem('color',getRandomColor())
       navigate("/blogs");
     } catch (e) {
       alert("Signup failed");

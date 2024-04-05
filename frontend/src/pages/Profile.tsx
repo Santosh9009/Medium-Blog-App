@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Appbar from '../Component/Appbar';
+import '../App.css'
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
@@ -25,8 +25,7 @@ const Profile = () => {
 
   return (
     <>
-    <Appbar/>
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 flex flex-col py-12 sm:px-6 lg:px-8 fade-in">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">User Profile</h2>
@@ -98,6 +97,7 @@ const Profile = () => {
                 type="button"
                 onClick={()=>{
                   localStorage.removeItem('token')
+                  localStorage.removeItem('color')
                   navigate('/signin')
                 }}
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

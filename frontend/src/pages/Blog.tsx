@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useBlogs } from "../hooks";
 import { useParams } from "react-router-dom";
 import { BlogSkeleton } from "../Component/Sketons/BlogSkeleton";
-import Appbar from "../Component/Appbar";
 
 interface blog {
   title: string;
@@ -36,7 +35,6 @@ export const Blog = () => {
 
   return (
     <>
-    <Appbar authorname={'Harish'}/>
     <div className="grid md:grid-cols-3 px-5">
       <div className="col-span-2 flex flex-col justify-start items-center py-20 font-serif">
         <div className="flex flex-col gap-10 max-w-4xl mx-auto px-5">
