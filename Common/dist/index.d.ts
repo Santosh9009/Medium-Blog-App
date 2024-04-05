@@ -22,6 +22,19 @@ export declare const SigninSchema: z.ZodObject<{
     email: string;
     password: string;
 }>;
+export declare const UpdateUser: z.ZodObject<{
+    name: z.ZodOptional<z.ZodString>;
+    email: z.ZodOptional<z.ZodString>;
+    password: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    name?: string | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
+}, {
+    name?: string | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
+}>;
 export declare const Createblog: z.ZodObject<{
     title: z.ZodString;
     content: z.ZodString;
@@ -53,5 +66,6 @@ export declare const Updateblog: z.ZodObject<{
 }>;
 export type signuptype = z.infer<typeof SignupSchema>;
 export type signintype = z.infer<typeof SigninSchema>;
+export type UpdateUsertype = z.infer<typeof UpdateUser>;
 export type createtype = z.infer<typeof Createblog>;
 export type updatetype = z.infer<typeof Updateblog>;

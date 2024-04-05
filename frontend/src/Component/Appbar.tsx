@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import img from '../assets/icons8-write-60.png'
 
 
 const Appbar = () => {
@@ -17,7 +18,11 @@ const Appbar = () => {
         <div className='flex items-center gap-6'>
         <button onClick={()=>{
           navigate('/create')
-        }} className='font-light text-xl hover:text-slate-400'>Write</button>
+        }} className='font-light text-base md:text-lg hover:text-slate-400'>
+          <div className='flex gap-1'>
+          <img className='w-6 h-6' src={img} alt="" />Write
+          </div>
+          </button>
      <button onClick={()=>{
         navigate('/profile')
       }} className={`relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2   hover:bg-black transition-all duration-200 ${color}`}>

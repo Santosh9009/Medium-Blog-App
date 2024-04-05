@@ -17,18 +17,18 @@ const BlogCard = ({ authorname, publishDate, title, content,id }: Blog) => {
 
   return (
     <div onClick={navigator} className="flex flex-col gap-1 my-5 w-[70%] mx-auto">
-      <div className="flex items-center gap-2">
-        <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2">
-          <span className="font-medium text-gray-600 ">
-            {authorname!==null?authorname.toUpperCase().slice(0, 1):null}
+      <div className="flex items-center justify-start gap-2 mb-3">
+        <div className="flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2">
+          <span className="font-medium text-gray-600">
+            {authorname!==null?authorname.toUpperCase().slice(0, 1):"K"}
           </span>
         </div>
-        <div>{authorname}</div>
+        <div>{authorname!==null?authorname:"Jarvis"}</div>
         <div className="w-[.2rem] h-[.2rem] rounded-full bg-slate-500"></div>
-        <div className="text-slate-500 inline-block">{publishDate}</div>
+        <div className="text-slate-500 inline-block">{publishDate!==null?publishDate:'3 Jan,2024'}</div>
       </div>
-      <div className="font-bold text-3xl">{title}</div>
-      <div className="text-xl font-serif text-gray-700 line-clamp-2">
+      <div className="font-bold text-2xl md:text-3xl">{title}</div>
+      <div className=" text-base md:text-xl font-serif text-gray-700 line-clamp-2">
         {content}..
       </div>
       <div className="text-slate-500 font-medium my-5">

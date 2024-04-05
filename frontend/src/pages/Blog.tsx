@@ -44,9 +44,7 @@ export const Blog = () => {
             </div>
             <div className="text-lg lg:text-xl">
               Posted on{" "}
-              {blog?.publishDate === undefined
-                ? "Dec 23, 2023"
-                : blog?.publishDate}
+              {!blog?.publishDate ? '25 Dec, 2023':blog.publishDate}
             </div>
             <div className="flex gap-5 items-center md:invisible">
               <div className="w-3 h-3 bg-gray-300 rounded-full"></div>

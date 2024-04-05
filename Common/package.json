@@ -1,6 +1,6 @@
 {
   "name": "@santosh_pati/medium-common",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
