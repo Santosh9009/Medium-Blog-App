@@ -22,7 +22,7 @@ export const Blog = () => {
     if (post) {
       setBlog(post);
     }
-  });
+  },[]);
 
   if (loading) {
     return (

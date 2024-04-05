@@ -1,4 +1,3 @@
-import { useNavigate, useParams } from "react-router-dom";
 import BlogCard from "../Component/BlogCard"
 import { BlogsSkeleton } from "../Component/Sketons/BlogsSkeleton";
 import { useBlogs } from "../hooks"
