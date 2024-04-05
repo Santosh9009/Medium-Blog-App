@@ -6,6 +6,7 @@ import { Blogs } from "./pages/Blogs";
 import Profile from "./pages/Profile";
 import { Createblog } from "./pages/Createblog";
 import PrivateRoute from "./Component/PrivateRoute";
+import { Myblog } from "./pages/Myblog";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/create" element={<Createblog />} />
+            <Route path="/myblog/:id" element={<Myblog />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -7,7 +7,7 @@ export const BlogsSkeleton = () => {
   </div>;
 };
 
-function Skeleton() {
+export const Skeleton=()=> {
   return (
     <>
     <div className="flex flex-col gap-1 my-5 w-[70%] mx-auto">

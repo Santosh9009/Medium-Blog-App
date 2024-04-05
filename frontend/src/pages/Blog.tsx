@@ -14,7 +14,6 @@ interface blog {
 
 export const Blog = () => {
   const { id } = useParams<{ id: string }>();
-  // const { blog, loading } = useBlog(id || " ");
   const { loading, blogs } = useBlogs();
   const [blog, setBlog] = useState<blog | null>(null);
 

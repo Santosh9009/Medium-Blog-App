@@ -5,18 +5,20 @@ interface Blog {
   publishDate: string,
   title: string,
   content: string,
-  id:string
+  id?:string
 }
-const BlogCard = ({ authorname, publishDate, title, content,id }: Blog) => {
 
+const BlogCard = ({ authorname, publishDate, title, content,id }:Blog ,) => {
   const navigate = useNavigate();
 
-  function navigator():void{
+  
+function handleclick():void{
     navigate(`/blog/${id}`)
   }
 
+
   return (
-    <div onClick={navigator} className="flex flex-col gap-1 my-5 w-[70%] mx-auto">
+    <div onClick={handleclick} className="flex flex-col gap-1 my-5 w-[70%] mx-auto">
       <div className="flex items-center justify-start gap-2 mb-3">
         <div className="flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2">
           <span className="font-medium text-gray-600">

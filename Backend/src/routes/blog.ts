@@ -136,6 +136,7 @@ BlogRouter.get("/mypost", async (c) => {
       id:userId,
     },
    },select:{
+    id:true,
     title:true,
     content:true,
     publishDate:true,
