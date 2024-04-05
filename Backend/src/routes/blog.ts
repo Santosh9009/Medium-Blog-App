@@ -123,6 +123,35 @@ BlogRouter.get("/bulk", async (c) => {
   });
 });
 
+// all my posts
+BlogRouter.get("/mypost", async (c) => {
+  const userId = c.get("userId");
+  
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const mypost = await prisma.post.findMany({
+   where:{
+    author:{
+      id:userId,
+    },
+   },select:{
+    title:true,
+    content:true,
+    publishDate:true,
+    author:{
+      select:{
+        name:true,
+      }
+    }
+   }
+  });
+
+  return c.json({
+    posts: mypost,
+  });
+});
+
 
 BlogRouter.get("/:id", async (c) => {
   
