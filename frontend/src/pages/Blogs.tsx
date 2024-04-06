@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import BlogCard from "../Component/BlogCard"
 import { BlogsSkeleton } from "../Component/Sketons/BlogsSkeleton";
 import { useBlogs } from "../hooks"
@@ -6,6 +7,9 @@ import { useBlogs } from "../hooks"
 export const Blogs = () => {
   const {loading, blogs} = useBlogs();
 
+  useEffect(()=>{
+    console.log(blogs)
+  })
 
   if(loading){
     return <div><BlogsSkeleton/></div>

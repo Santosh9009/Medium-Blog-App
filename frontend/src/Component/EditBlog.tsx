@@ -5,11 +5,10 @@ interface EditBlogProps {
   id: string | undefined;
   initialTitle: string;
   initialContent: string;
-  initialPublishDate?: string;
   onSave: (editedTitle: string, editedContent: string,editedPublishDate?: string) => void;
 }
 
-export const EditBlog: React.FC<EditBlogProps> = ({ id, initialTitle, initialContent, onSave }) => {
+export const EditBlog: React.FC<EditBlogProps> = ({ id, initialTitle, initialContent, onSave }:EditBlogProps) => {
   const [editedTitle, setEditedTitle] = useState(initialTitle);
   const [editedContent, setEditedContent] = useState(initialContent);
 

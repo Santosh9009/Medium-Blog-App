@@ -15,16 +15,18 @@ interface blog {
 export const Blog = () => {
   const { id } = useParams<{ id: string }>();
   const { loading, blogs } = useBlogs();
-  const [blog, setBlog] = useState<blog | null>(null);
-
+  const [blog, setBlog] = useState<blog>();
+  
+  
   useEffect(() => {
+    console.log(blogs)
     const post = blogs.find((e) => e.id === id);
     if (post) {
       setBlog(post);
     }
-  },[]);
+  },[blogs]);
 
-  if (loading) {
+  if (loading || !blog) {
     return (
       <div>
         <BlogSkeleton />
