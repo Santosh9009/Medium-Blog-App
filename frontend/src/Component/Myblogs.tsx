@@ -10,6 +10,7 @@ export const Myblogs = () => {
       <div>
         <Skeleton />
         <Skeleton />
+        <Skeleton />
       </div>
     );
   }

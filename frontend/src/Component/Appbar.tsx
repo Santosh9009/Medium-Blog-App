@@ -18,9 +18,9 @@ const Appbar = () => {
         <div className='flex items-center gap-6'>
         <button onClick={()=>{
           navigate('/create')
-        }} className='font-light text-base md:text-lg hover:text-slate-400'>
+        }} className='font-light text-base md:text-lg hover:opacity-50'>
           <div className='flex gap-1'>
-          <img className='w-6 h-6' src={img} alt="" />Write
+          <img className='w-6 h-6 ' src={img} alt="" />Write
           </div>
           </button>
      <button onClick={()=>{
