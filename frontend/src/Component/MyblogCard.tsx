@@ -32,11 +32,11 @@ export const MyblogCard = ({
           {publishDate || "3 Jan,2024"}
         </div>
       </div>
-      <div className="font-bold text-2xl md:text-3xl">{title}</div>
-      <div className="text-base md:text-xl font-serif text-gray-700 line-clamp-2">
+      <div className="font-medium text-2xl md:text-3xl">{title}</div>
+      <div className="text-base md:text-lg font-serif text-gray-700 line-clamp-2">
         {content}..
       </div>
-      <div className="text-slate-500 font-medium my-5">
+      <div className="text-slate-500 font-medium my-3">
         {Math.floor(content.length / 100)} min read
       </div>
       <div className="bg-slate-200 h-[.15rem]"></div>

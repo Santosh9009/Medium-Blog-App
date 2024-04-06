@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useBlog } from "../hooks";
 import img from '../assets/icons8-menu-vertical-64.png'
-import { EditBlog } from "./EditBlog";
+import { EditBlog } from "../Component/EditBlog";
 
 interface Blog {
   id: string;
@@ -19,7 +19,9 @@ export const Myblog: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
-    setBlog(initialBlog);
+    if(initialBlog){
+      setBlog(initialBlog)
+    }
   }, [initialBlog]);
 
   const handleEditOption = () => {
@@ -28,7 +30,7 @@ export const Myblog: React.FC = () => {
   };
 
   const handleDeleteOption = () => {
-    // Implement delete functionality here
+ 
     setDropdownOpen(false);
   };
 

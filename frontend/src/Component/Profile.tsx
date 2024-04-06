@@ -1,21 +1,49 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 export const ProfileComp = () => {
   const [editing, setEditing] = useState(false);
-  const [name, setName] = useState("John Doe");
-  const [email, setEmail] = useState("john@example.com");
-  const [password, setPassword] = useState("password123"); // Initial password value
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); // Initial password value
   const navigate = useNavigate();
 
   const handleEdit = () => {
     setEditing(true);
   };
 
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    axios.get(`${BACKEND_URL}/api/v1/user/me`, {
+      headers: headers,
+    }).then((res) => {
+      setName(res.data.user.name)
+      setEmail(res.data.user.email)
+      setPassword(res.data.user.password)
+    })
+  },[])
+
   const handleSave = () => {
-    setEditing(false);
-    // Update the name, email, and password in the database or state
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    axios.put(`${BACKEND_URL}/api/v1/user/me/update`, {
+      name: name,
+      email: email,
+      password: password,
+    }, {
+      headers: headers,
+    }).then(() => {
+      setEditing(false);
+    }).catch((error) => {
+      console.log(error);
+      alert('Not updated')
+    });
+    
   };
+  
 
   const handleCancel = () => {
     setEditing(false);

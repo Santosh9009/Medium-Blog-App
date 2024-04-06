@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 interface EditBlogProps {
-  id: string;
+  id: string | undefined;
   initialTitle: string;
   initialContent: string;
   initialPublishDate?: string;

@@ -17,7 +17,7 @@ export const Myblogs = () => {
 
   return (
     <div className="">
-      <div className="text-center font-medium text-3xl">MyBlogs</div>
+      <div className="text-center font-medium text-3xl">Your Blogs</div>
       {blogs.map((e,i) => (
         <MyblogCard key={i}
           authorname={e.author.name}

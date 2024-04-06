@@ -7,7 +7,7 @@ import Profile from "./pages/Profile";
 import { Createblog } from "./pages/Createblog";
 import PrivateRoute from "./Component/PrivateRoute";
 import { Myblog } from "./pages/Myblog";
-import { EditBlog } from "./pages/EditBlog";
+import { EditBlog } from "./Component/EditBlog";
 
 function App() {
 
