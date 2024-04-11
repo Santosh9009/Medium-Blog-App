@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { getRandomColor } from "../assets/Color"
+import '../App.css'
 
 export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   const navigate = useNavigate();
@@ -27,10 +28,10 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center fade-in">
       <div className="flex flex-col gap-3 justify-center md:w-[65%] lg:w-[45%]">
         <div className="w-full font-extrabold text-3xl lg:text-4xl text-center inline-block">
-          Create an account
+          {type=== "Signup" ? "Create an account": "Login to the account"}
         </div>
 
         <div className=" font-medium text-base md:text-lg text-center text-slate-500 mb-5">

@@ -8,6 +8,7 @@ import { Createblog } from "./pages/Createblog";
 import PrivateRoute from "./Component/PrivateRoute";
 import { Myblog } from "./pages/Myblog";
 import { EditBlog } from "./Component/EditBlog";
+import Home from "./pages/home";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Home/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route element={<PrivateRoute/>}>
