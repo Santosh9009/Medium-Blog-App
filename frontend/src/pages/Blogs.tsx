@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import BlogCard from "../Component/BlogCard"
 import { BlogsSkeleton } from "../Component/Sketons/BlogsSkeleton";
 import { useBlogs } from "../hooks"
+import { allBlogs } from "../Store/Atoms";
+import { useRecoilValue } from "recoil";
 
 
 export const Blogs = () => {
-  const {loading, blogs} = useBlogs();
+  const blogs = useRecoilValue(allBlogs);
+  const {loading} = useBlogs();
 
   useEffect(()=>{
     console.log(blogs)
