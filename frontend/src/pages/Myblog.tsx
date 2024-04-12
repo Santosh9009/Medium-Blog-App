@@ -60,7 +60,6 @@ export const Myblog: React.FC = () => {
               id={id}
               initialTitle={blog?.title || ""}
               initialContent={blog?.content || ""}
-              initialPublishDate={blog?.publishDate}
               onSave={(editedTitle, editedContent, editedPublishDate) =>
                 handleSaveEdit(editedTitle, editedContent, editedPublishDate)
               }

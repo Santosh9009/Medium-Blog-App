@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import img from '../assets/icons8-enter-50 (1).png'
 
 interface Blog {
   authorname: string;
@@ -36,8 +37,11 @@ export const MyblogCard = ({
       <div className="text-base md:text-lg font-serif text-gray-700 line-clamp-2">
         {content}..
       </div>
+      <div className="flex w-full justify-between items-center">
       <div className="text-slate-500 font-medium my-3">
         {Math.floor(content.length / 100)} min read
+      </div>
+        <img onClick={handleClick} className="w-6 h-6 hover:opacity-50" src={img} alt="" />
       </div>
       <div className="bg-slate-200 h-[.15rem]"></div>
     </div>

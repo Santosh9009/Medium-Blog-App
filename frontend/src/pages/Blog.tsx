@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useBlogs } from "../hooks";
 import { useParams } from "react-router-dom";
 import { BlogSkeleton } from "../Component/Sketons/BlogSkeleton";
+import { useRecoilValue } from "recoil";
+import { allBlogs } from "../Store/Atoms";
 
 interface blog {
   title: string;
@@ -14,7 +15,7 @@ interface blog {
 
 export const Blog = () => {
   const { id } = useParams<{ id: string }>();
-  const { loading, blogs } = useBlogs();
+  const blogs = useRecoilValue(allBlogs);
   const [blog, setBlog] = useState<blog>();
   
   
@@ -26,7 +27,7 @@ export const Blog = () => {
     }
   },[blogs]);
 
-  if (loading || !blog) {
+  if (!blog) {
     return (
       <div>
         <BlogSkeleton />
@@ -36,7 +37,7 @@ export const Blog = () => {
 
   return (
     <>
-    <div className="grid md:grid-cols-3 px-5">
+    <div className="grid md:grid-cols-3 px-5 fade-in">
       <div className="col-span-2 flex flex-col justify-start items-center py-20 font-serif">
         <div className="flex flex-col gap-10 max-w-4xl mx-auto px-5">
           <div>

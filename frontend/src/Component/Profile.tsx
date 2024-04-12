@@ -1,38 +1,27 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
+import { useRecoilState } from "recoil";
+import { UserState } from "../Store/Atoms";
 
 export const ProfileComp = () => {
   const [editing, setEditing] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); // Initial password value
+  const [user , setUser] = useRecoilState(UserState);
   const navigate = useNavigate();
 
   const handleEdit = () => {
     setEditing(true);
   };
 
-  useEffect(()=>{
-    const token = localStorage.getItem('token');
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    axios.get(`${BACKEND_URL}/api/v1/user/me`, {
-      headers: headers,
-    }).then((res) => {
-      setName(res.data.user.name)
-      setEmail(res.data.user.email)
-      setPassword(res.data.user.password)
-    })
-  },[])
 
   const handleSave = () => {
     const token = localStorage.getItem('token');
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     axios.put(`${BACKEND_URL}/api/v1/user/me/update`, {
-      name: name,
-      email: email,
-      password: password,
+      name: user.name,
+      email: user.email,
+      password: user.password,
     }, {
       headers: headers,
     }).then(() => {
@@ -70,12 +59,12 @@ export const ProfileComp = () => {
                 id="name"
                 name="name"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={user.name}
+                onChange={(e) => setUser({...user,name:e.target.value})}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             ) : (
-              <p className="mt-1">{name}</p>
+              <p className="mt-1">{user.name}</p>
             )}
           </div>
           <div>
@@ -90,12 +79,12 @@ export const ProfileComp = () => {
                 id="email"
                 name="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={user.email}
+                onChange={(e) => setUser({...user,email:e.target.value})}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             ) : (
-              <p className="mt-1">{email}</p>
+              <p className="mt-1">{user.email}</p>
             )}
           </div>
           <div>
@@ -110,14 +99,14 @@ export const ProfileComp = () => {
                 id="password"
                 name="password"
                 type="text"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={user.password}
+                onChange={(e) => setUser({...user,password:e.target.value})}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             ) : (
               <p className="mt-1">
-                {password.substring(0, 3)}{" "}
-                {password.substring(3).replace(/./g, "*")}
+                {user.password.substring(0, 3)}{" "}
+                {user.password.substring(3).replace(/./g, "*")}
               </p>
             )}
           </div>
