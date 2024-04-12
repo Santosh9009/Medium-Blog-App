@@ -6,6 +6,7 @@ import { BACKEND_URL } from "../config";
 import { getRandomColor } from "../assets/Color"
 import '../App.css'
 
+
 export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   const navigate = useNavigate();
   const [postInputs, setPostInputs] = useState<signuptype>({

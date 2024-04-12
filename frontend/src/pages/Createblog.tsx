@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "../App.css";
 import axios from "axios";
+import { Spinner } from "../Component/Spinner";
 
 export const Createblog = () => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -56,7 +57,7 @@ export const Createblog = () => {
   }
  console.log('hi')
   if(loading){
-    return <div>loading...</div>
+    return <Spinner/>
   }
 
   return (

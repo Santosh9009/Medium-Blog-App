@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useBlog } from "../hooks";
 import img from '../assets/icons8-menu-vertical-64.png'
 import { EditBlog } from "../Component/EditBlog";
+import '../App.css'
 
 interface Blog {
   id: string;
@@ -13,10 +14,11 @@ interface Blog {
 
 export const Myblog: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { blog: initialBlog, loading } = useBlog(id || " ");
+  const { blog: initialBlog,loading} = useBlog(id || " ");
   const [editMode, setEditMode] = useState(false);
   const [blog, setBlog] = useState<Blog | null>(initialBlog || null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  
 
   useEffect(() => {
     if(initialBlog){
@@ -36,7 +38,7 @@ export const Myblog: React.FC = () => {
 
   const handleSaveEdit = (editedTitle: string, editedContent: string, editedPublishDate?: string) => {
     setEditMode(false);
-    // Update the state with edited values
+    
     if (blog) {
       setBlog({
         ...blog,
@@ -48,7 +50,7 @@ export const Myblog: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (<div className="h-screen ">loading...</div>)
   }
 
   return (
