@@ -56,7 +56,9 @@ export const Myblog: React.FC = () => {
       <div className="max-w-sm md:max-w-2xl m-auto py-20 font-serif px-5">
         <div className="flex flex-col gap-10">
           {editMode ? (
+            <>
             <EditBlog
+              setEditmode={setEditMode}
               id={id}
               initialTitle={blog?.title || ""}
               initialContent={blog?.content || ""}
@@ -64,6 +66,7 @@ export const Myblog: React.FC = () => {
                 handleSaveEdit(editedTitle, editedContent, editedPublishDate)
               }
             />
+            </>
           ) : (
             <>
               <div className="font-bold text-2xl md:text-5xl">

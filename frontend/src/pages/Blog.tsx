@@ -20,7 +20,6 @@ export const Blog = () => {
   
   
   useEffect(() => {
-    console.log(blogs)
     const post = blogs.find((e) => e.id === id);
     if (post) {
       setBlog(post);

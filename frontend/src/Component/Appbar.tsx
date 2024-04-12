@@ -33,7 +33,7 @@ const Appbar = () => {
     <div className='w-full flex justify-between px-5 py-3 border-2'>
       <button onClick={()=>{
         navigate('/blogs')
-      }} className='font-medium text-xl'>Medium</button>
+      }} className='font-medium text-2xl font-serif'>Medium</button>
       <div>
         <div className='flex items-center gap-6'>
         <button onClick={()=>{

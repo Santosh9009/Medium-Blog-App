@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import img2 from '../assets/icons8-back-50.png'
+
 
 interface EditBlogProps {
   id: string | undefined;
   initialTitle: string;
   initialContent: string;
   onSave: (editedTitle: string, editedContent: string,editedPublishDate?: string) => void;
+  setEditmode:(editMode:boolean)=>void;
 }
 
-export const EditBlog: React.FC<EditBlogProps> = ({ id, initialTitle, initialContent, onSave }:EditBlogProps) => {
+export const EditBlog: React.FC<EditBlogProps> = ({id, initialTitle, initialContent, onSave, setEditmode}:EditBlogProps) => {
   const [editedTitle, setEditedTitle] = useState(initialTitle);
   const [editedContent, setEditedContent] = useState(initialContent);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+    }
+  }, [editedContent]);
+
 
   const handleSaveClick = async () => {
     const currentDate = new Date();
@@ -42,7 +54,7 @@ export const EditBlog: React.FC<EditBlogProps> = ({ id, initialTitle, initialCon
           id: id,
           title: editedTitle,
           content: editedContent,
-          publishDate: newDate, // Use edited publish date if available, otherwise use current date
+          publishDate: newDate, 
         },
         {
           headers: headers,
@@ -57,6 +69,14 @@ export const EditBlog: React.FC<EditBlogProps> = ({ id, initialTitle, initialCon
 
   return (
     <>
+    <div className="flex justify-between"><img onClick={(()=>setEditmode(false))} className="h-10 w-10 hover:opacity-50" src={img2} alt="" />
+    <button
+            onClick={handleSaveClick}
+            className="bg-green-600 text-white px-4 py-2 rounded-full font-medium font-sans hover:bg-green-800"
+          >
+            Publish
+          </button>
+          </div>
       <input
         type="text"
         value={editedTitle}
@@ -64,17 +84,12 @@ export const EditBlog: React.FC<EditBlogProps> = ({ id, initialTitle, initialCon
         className="font-bold text-5xl text-black focus:outline-none"
       />
       <textarea
+        ref={textareaRef}
         value={editedContent}
         onChange={(e) => setEditedContent(e.target.value)}
-        className="text-lg leading-loose focus:outline-none h-auto"
-        rows={15}
+        className="text-lg leading-loose focus:outline-none resize-none overflow-y-hidden h-full"
       />
-      <button
-        onClick={handleSaveClick}
-        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Save
-      </button>
+     
     </>
   );
 };
