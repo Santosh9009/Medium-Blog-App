@@ -6,6 +6,7 @@ import { BACKEND_URL } from "../config";
 import { getRandomColor } from "../assets/Color"
 import '../App.css'
 import { toast } from 'react-toastify';
+import img from '../assets/icons8-back-50.png'
 
 
 export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
@@ -33,7 +34,9 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   }
 
   return (
+    <>
     <div className="h-screen flex justify-center items-center fade-in">
+    <Link to={'/'}  className="absolute top-5 left-5 hover:opacity-50"><img src={img} alt="" /></Link>
       <form onSubmit={Sendrequest} className="flex flex-col gap-3 justify-center md:w-[65%] lg:w-[45%]">
         <div className="w-full font-extrabold text-3xl lg:text-4xl text-center inline-block">
           {type === "Signup" ? "Create an account" : "Login to the account"}
@@ -124,5 +127,6 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
         </button>
       </form>
     </div>
+    </>
   );
 };

@@ -9,7 +9,7 @@ const Home = () => {
         <div className="text-2xl md:text-4xl font-serif">Medium</div>
         <button onClick={()=>{
           navigate('/signin')
-        }} className="px-6 py-3 bg-black text-base md:text-lg text-white rounded-full font-medium">Signin</button>
+        }} className="px-6 py-3 bg-black hover:bg-gray-700 text-base md:text-lg text-white rounded-full font-medium">Signin</button>
       </div>
       <div className="h-[90vh] flex flex-col justify-center items-start bg-yellow-500 px-10 md:px-24 gap-8">
         <div className="font-serif text-4xl md:text-6xl lg:text-9xl">Stay Curious</div>

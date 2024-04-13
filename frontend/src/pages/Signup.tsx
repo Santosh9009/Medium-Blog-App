@@ -2,6 +2,7 @@ import { Auth } from "../Component/Auth"
 import { Quote } from "../Component/Quote"
 
 
+
 export const Signup = () => {
 
   return (
