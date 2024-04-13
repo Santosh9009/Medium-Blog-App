@@ -5,6 +5,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { getRandomColor } from "../assets/Color"
 import '../App.css'
+import { toast } from 'react-toastify';
 
 
 export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
@@ -15,27 +16,30 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
     password: "",
   });
 
-  async function Sendrequest() {
+  async function Sendrequest(e: React.FormEvent) {
+    e.preventDefault(); // Prevent default form submission behavior
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/user/${type === "Signup" ? "signup" : "signin"}`,postInputs);
+        `${BACKEND_URL}/api/v1/user/${type === "Signup" ? "signup" : "signin"}`, postInputs
+      );
       const jwt = response.data.token;
       localStorage.setItem("token", jwt);
-      localStorage.setItem('color',getRandomColor())
+      localStorage.setItem('color', getRandomColor());
       navigate("/blogs");
+      setTimeout(() => toast.success(`${type} Successully!`), 500);
     } catch (e) {
-      alert("Signup failed");
+      setTimeout(() => toast.error(`${type} Failed!`), 500);
     }
   }
 
   return (
     <div className="h-screen flex justify-center items-center fade-in">
-      <div className="flex flex-col gap-3 justify-center md:w-[65%] lg:w-[45%]">
+      <form onSubmit={Sendrequest} className="flex flex-col gap-3 justify-center md:w-[65%] lg:w-[45%]">
         <div className="w-full font-extrabold text-3xl lg:text-4xl text-center inline-block">
-          {type=== "Signup" ? "Create an account": "Login to the account"}
+          {type === "Signup" ? "Create an account" : "Login to the account"}
         </div>
 
-        <div className=" font-medium text-base md:text-lg text-center text-slate-500 mb-5">
+        <div className="font-medium text-base md:text-lg text-center text-slate-500 mb-5">
           {type === "Signup"
             ? "Already have an account ?"
             : "Dont have an account ?"}
@@ -47,77 +51,78 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
           </Link>
         </div>
 
-        <div>
-          {type === "Signup" && (
-            <div className="mb-4">
-              <label
-                htmlFor="username"
-                className="block text-gray-700 text-sm md:text-lg font-bold mb-2"
-              >
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                className="border rounded w-full py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
-                placeholder="Enter your username"
-                onChange={(e) => {
-                  setPostInputs((c) => ({
-                    ...c,
-                    name: e.target.value,
-                  }));
-                }}
-                required
-              />
-            </div>
-          )}
+        {type === "Signup" && (
           <div className="mb-4">
             <label
-              htmlFor="email"
+              htmlFor="username"
               className="block text-gray-700 text-sm md:text-lg font-bold mb-2"
             >
-              Email
+              Username
             </label>
             <input
-              id="email"
-              type="email"
+              type="text"
+              id="username"
+              minLength={1}
               className="border rounded w-full py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Enter your username"
               onChange={(e) => {
                 setPostInputs((c) => ({
                   ...c,
-                  email: e.target.value,
+                  name: e.target.value,
                 }));
               }}
               required
             />
           </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 text-sm md:text-lg font-bold mb-2"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              className="border rounded w-full py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
-              onChange={(e) => {
-                setPostInputs((c) => ({
-                  ...c,
-                  password: e.target.value,
-                }));
-              }}
-              required
-            />
-          </div>
+        )}
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 text-sm md:text-lg font-bold mb-2"
+          >
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            minLength={5}
+            className="border rounded w-full py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="Enter your username"
+            onChange={(e) => {
+              setPostInputs((c) => ({
+                ...c,
+                email: e.target.value,
+              }));
+            }}
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="password"
+            className="block text-gray-700 text-sm md:text-lg font-bold mb-2"
+          >
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            minLength={5}
+            className="border rounded w-full py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+            onChange={(e) => {
+              setPostInputs((c) => ({
+                ...c,
+                password: e.target.value,
+              }));
+            }}
+            required
+          />
         </div>
 
-        <button onClick={Sendrequest} className="w-full bg-black px-6 py-3 text-white font-medium text-lg rounded-md active:bg-blue-500">
+        <button type="submit" className="w-full bg-black px-6 py-3 text-white font-medium text-lg rounded-md active:bg-blue-500">
           {type === "Signup" ? "Sign up" : "Sign in"}
         </button>
-      </div>
+      </form>
     </div>
   );
 };

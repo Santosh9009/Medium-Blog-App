@@ -99,6 +99,37 @@ BlogRouter.put("/update", async (c) => {
 });
 
 
+BlogRouter.delete("/delete/:id", async (c) => {
+  
+  const userId = c.get("userId");
+  const id = c.req.param('id');
+  
+  
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env?.DATABASE_URL,
+  }).$extends(withAccelerate());
+    const post = await prisma.post.findUnique({
+      where:{
+        id:id,
+        authorId:userId
+      }
+    })
+    if(!post){
+      c.status(411)
+      return c.text("Post doesn't exist")
+    }
+
+    await prisma.post.delete({
+      where:{
+        id:id,
+        authorId:userId
+      }
+    })
+
+  return c.text("Deleted successfully!");
+});
+
+
 BlogRouter.get("/bulk", async (c) => {
   
   const prisma = new PrismaClient({

@@ -8,11 +8,15 @@ import { Createblog } from "./pages/Createblog";
 import PrivateRoute from "./Component/PrivateRoute";
 import { Myblog } from "./pages/Myblog";
 import Home from "./pages/home";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function App() {
 
   return (
     <>
+    <ToastContainer/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>} />

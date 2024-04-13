@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import "../App.css";
 import axios from "axios";
 import { Spinner } from "../Component/Spinner";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Createblog = () => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -14,6 +17,10 @@ export const Createblog = () => {
   }, []);
 
   async function handleclick() {
+    if(blog.title===''|| blog.content===''){
+      toast.warning("Fields are Empty")
+      return
+    }
     const currentDate = new Date();
     const monthNames = [
       "January",
@@ -49,10 +56,10 @@ export const Createblog = () => {
         }
       )
       setBlog({ title: "", content: "" });
-      alert("Published successfully!");
       setLoading(false);
+      setTimeout(()=>toast.success("Published successfully!"),500)
     } catch (error) {
-      alert("Failed to Publish.");
+      setTimeout(()=>toast.error("Failed to Publish."),500)
     }
   }
  console.log('hi')
@@ -61,6 +68,8 @@ export const Createblog = () => {
   }
 
   return (
+    <>
+     <ToastContainer position="top-center"/>
     <div className="w-full flex justify-center py-10 fade-in">
       <div className="w-full max-w-3xl mx-auto font-serif px-5">
         <div className="w-full flex justify-between items-center mb-5">
@@ -112,5 +121,6 @@ export const Createblog = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };

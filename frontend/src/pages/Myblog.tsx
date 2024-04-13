@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useBlog } from "../hooks";
 import img from '../assets/icons8-menu-vertical-64.png'
 import { EditBlog } from "../Component/EditBlog";
 import '../App.css'
+import { Spinner } from "../Component/Spinner";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 
 interface Blog {
   id: string;
@@ -18,6 +22,8 @@ export const Myblog: React.FC = () => {
   const [editMode, setEditMode] = useState(false);
   const [blog, setBlog] = useState<Blog | null>(initialBlog || null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [ load, setLoad ] = useState(false);
+  const navigate = useNavigate();
   
 
   useEffect(() => {
@@ -31,8 +37,23 @@ export const Myblog: React.FC = () => {
     setDropdownOpen(false);
   };
 
-  const handleDeleteOption = () => {
- 
+  const handleDeleteOption = async() => {
+    const token = localStorage.getItem("token");
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    setLoad(true);
+    try {
+      await axios.delete(
+        `http://localhost:8787/api/v1/blog/delete/${id}`,
+        {
+          headers: headers,
+        }
+      );
+      setLoad(false);
+      navigate('/profile')
+      setTimeout(()=>toast.success("Deleted successfully!"),500)
+    } catch (error) {
+      toast.error("Failed to update!");
+    }
     setDropdownOpen(false);
   };
 
@@ -49,8 +70,8 @@ export const Myblog: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return (<div className="h-screen ">loading...</div>)
+  if (loading || load) {
+    return <Spinner/>
   }
 
   return (
