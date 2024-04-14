@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import img from '../assets/icons8-enter-50 (1).png'
+import '../App.css'
 
 interface Blog {
   authorname: string;

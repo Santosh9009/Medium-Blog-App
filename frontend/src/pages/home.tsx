@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import screenshot from '../assets/Screenshot from 2024-04-13 14-01-00.png'
+import '../App.css'
 
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <div className="h-screen">
+    <div className="h-screen ">
       <div className="flex justify-between items-center px-6 md:px-16 py-3 bg-[#FFC017] border-b-[.1rem] border-black">
         <div className="text-2xl md:text-4xl font-serif">Medium</div>
         <button onClick={()=>{
@@ -19,7 +20,7 @@ const Home = () => {
           navigate('/signup')
         }} className="px-6 py-2 md:px-8 md:py-3 lg:px-10 lg:py-4 text-lg md:text-xl lg:text-xl bg-black text-white rounded-full font-medium hover:bg-white hover:text-black">Get Started</button>
         </div>
-        <div className="hidden md:block"><img src={screenshot} alt="" /></div>
+        <div className="hidden md:block slide-in-left"><img src={screenshot} alt="" /></div>
       </div>
     </div>
   )
