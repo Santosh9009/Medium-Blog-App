@@ -23,14 +23,14 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   async function Sendrequest(e: React.FormEvent) {
     e.preventDefault(); // Prevent default form submission behavior
     try {
-      if (postInputs.password !== confirmPassword) {
+      if (type==="Signup" && postInputs.password !== confirmPassword) {
         toast.error("Passwords do not match");
         return;
       }
 
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/user/${type === "Signup" ? "signup" : "signin"}`,
-        postInputs
+        type==="Signup"?postInputs:{email:postInputs.email,password:postInputs.password}
       );
       const jwt = response.data.token;
       localStorage.setItem("token", jwt);
