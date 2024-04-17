@@ -18,7 +18,6 @@ export const Blog = () => {
   const blogs = useRecoilValue(allBlogs);
   const [blog, setBlog] = useState<blog>();
   
-  
   useEffect(() => {
     const post = blogs.find((e) => e.id === id);
     if (post) {

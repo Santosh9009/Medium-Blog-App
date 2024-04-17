@@ -34,8 +34,8 @@ export const MyblogCard = ({
           {publishDate || "3 Jan,2024"}
         </div>
       </div>
-      <div className="font-medium text-2xl md:text-3xl">{title}</div>
-      <div className="text-base md:text-lg font-serif text-gray-700 line-clamp-2">
+      <div className="font-medium text-2xl md:text-3xl font-sans">{title}</div>
+      <div className="text-base md:text-lg font-inter text-gray-700 line-clamp-2">
         {content}..
       </div>
       <div className="flex w-full justify-between items-center">

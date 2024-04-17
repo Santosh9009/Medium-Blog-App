@@ -76,7 +76,7 @@ export const Myblog: React.FC = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="max-w-sm md:max-w-2xl m-auto py-20 font-serif px-5">
+      <div className="max-w-sm md:max-w-2xl m-auto py-20 font-sans px-5">
         <div className="flex flex-col gap-10 fade-in">
           {editMode ? (
             <>

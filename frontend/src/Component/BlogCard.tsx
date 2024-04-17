@@ -18,7 +18,7 @@ function handleclick():void{
 
 
   return (
-    <div onClick={handleclick} className="flex flex-col gap-1 my-5 w-[70%] mx-auto">
+    <div onClick={handleclick} className="flex flex-col gap-1 my-5 w-[80%] md:w-[50%] mx-auto font-inter">
       <div className="flex items-center justify-start gap-2 mb-3">
         <div className="flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2">
           <span className="font-medium text-gray-600">
@@ -30,7 +30,7 @@ function handleclick():void{
         <div className="text-slate-500 inline-block">{publishDate!==null?publishDate:'3 Jan,2024'}</div>
       </div>
       <div className="font-bold text-2xl md:text-3xl">{title}</div>
-      <div className=" text-base md:text-xl font-serif text-gray-700 line-clamp-2">
+      <div className=" text-base md:text-xl text-gray-700 line-clamp-2">
         {content}..
       </div>
       <div className="text-slate-500 font-medium my-5">

@@ -53,7 +53,7 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   return (
     <>
       <div className="h-screen flex justify-center items-center fade-in">
-        <Link to={"/"} className="absolute top-5 left-5 hover:opacity-50">
+        <Link to={"/"} className=" w-11 h-11 md:w-16 md:h-16 absolute top-5 left-5 hover:scale-110 duration-200">
           <img src={img} alt="" />
         </Link>
         <form
@@ -178,7 +178,7 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
 
           <button
             type="submit"
-            className="w-full bg-black px-6 py-3 text-white font-medium text-lg rounded-md active:bg-blue-500"
+            className="w-full bg-black px-6 py-3 text-white font-medium text-lg rounded-md active:bg-blue-500 duration-200"
           >
             {type === "Signup" ? "Sign up" : "Sign in"}
           </button>
