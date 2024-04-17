@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import img from "../assets/icons8-back-50.png";
 import eye from "../assets/icons8-view-48.png";
 import cross from "../assets/icons8-cross-50.png";
+import { Spinner } from "./Spinner";
 
 export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   const navigate = useNavigate();
@@ -19,9 +20,11 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading ,setLoading] = useState(false);
 
   async function Sendrequest(e: React.FormEvent) {
     e.preventDefault(); // Prevent default form submission behavior
+    setLoading(true);
     try {
       if (type==="Signup" && postInputs.password !== confirmPassword) {
         toast.error("Passwords do not match");
@@ -40,6 +43,11 @@ export const Auth = ({ type }: { type: "Signup" | "Signin" }) => {
     } catch (e) {
       setTimeout(() => toast.error(`${type} Failed!`), 500);
     }
+    setLoading(false)
+  }
+
+  if(loading){
+    return <div><Spinner/></div>
   }
 
   return (

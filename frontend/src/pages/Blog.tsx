@@ -24,7 +24,7 @@ export const Blog = () => {
     if (post) {
       setBlog(post);
     }
-  },[blogs]);
+  },[blogs,id]);
 
   if (!blog) {
     return (

@@ -27,7 +27,7 @@ export const MyblogCard = ({
   return (
     <div
       onClick={handleClick}
-      className="flex flex-col gap-1 my-5 w-[70%] mx-auto"
+      className="flex flex-col gap-1 my-5 w-[70%] mx-auto slide-in-left"
     >
       <div className="flex items-center justify-start gap-2 mb-3">
         <div className="text-slate-500 inline-block">

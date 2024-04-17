@@ -4,42 +4,47 @@ import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 import { useRecoilState } from "recoil";
 import { UserState } from "../Store/Atoms";
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import '../App.css'
+type User = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export const ProfileComp = () => {
   const [editing, setEditing] = useState(false);
-  const [user , setUser] = useRecoilState(UserState);
+  const [user, setUser] = useRecoilState(UserState);
+  const [newUser, setNewUser] = useState<User>({ ...user }); // Initialize with current user data
   const navigate = useNavigate();
 
   const handleEdit = () => {
+    setNewUser({ ...user }); // Reset new user data to current user data
     setEditing(true);
   };
-
 
   const handleSave = () => {
     const token = localStorage.getItem('token');
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    axios.put(`${BACKEND_URL}/api/v1/user/me/update`, {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-    }, {
+    axios.put(`${BACKEND_URL}/api/v1/user/me/update`, newUser, {
       headers: headers,
     }).then(() => {
+      setUser(newUser); // Update UserState with new user data
       setEditing(false);
-      setTimeout(()=>toast.success("Updated Successfully"),500)
+      toast.success("Updated Successfully");
     }).catch((error) => {
       console.log(error);
-      setTimeout(()=>toast.success("Update Failed"),500)
+      toast.error("Update Failed");
     });
-    
   };
-  
 
   const handleCancel = () => {
     setEditing(false);
-    // Reset the name, email, and password fields to their original values
+    // Reset the newUser state to current user data if canceling edit
+    setNewUser({ ...user });
   };
+
+
   return (
     <>
       <div className="text-center">
@@ -61,13 +66,13 @@ export const ProfileComp = () => {
                 id="name"
                 name="name"
                 type="text"
-                value={user.name}
-                onChange={(e) => setUser({...user,name:e.target.value})}
+                value={newUser.name}
+                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             ) : (
-              <p className="mt-1">{user.name}</p>
-            )}
+                <p className="mt-1">{user.name}</p>
+              )}
           </div>
           <div>
             <label
@@ -81,13 +86,13 @@ export const ProfileComp = () => {
                 id="email"
                 name="email"
                 type="email"
-                value={user.email}
-                onChange={(e) => setUser({...user,email:e.target.value})}
+                value={newUser.email}
+                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             ) : (
-              <p className="mt-1">{user.email}</p>
-            )}
+                <p className="mt-1">{user.email}</p>
+              )}
           </div>
           <div>
             <label
@@ -101,16 +106,16 @@ export const ProfileComp = () => {
                 id="password"
                 name="password"
                 type="text"
-                value={user.password}
-                onChange={(e) => setUser({...user,password:e.target.value})}
+                value={newUser.password}
+                onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
                 className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
             ) : (
-              <p className="mt-1">
-                {user.password.substring(0, 3)}{" "}
-                {user.password.substring(3).replace(/./g, "*")}
-              </p>
-            )}
+                <p className="mt-1">
+                  {user.password.substring(0, 3)}{" "}
+                  {user.password.substring(3).replace(/./g, "*")}
+                </p>
+              )}
           </div>
           <div className="flex justify-between">
             {editing ? (
@@ -131,21 +136,21 @@ export const ProfileComp = () => {
                 </button>
               </>
             ) : (
-              <button
-                type="button"
-                onClick={handleEdit}
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Edit
-              </button>
-            )}
+                <button
+                  type="button"
+                  onClick={handleEdit}
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Edit
+                </button>
+              )}
             <button
               type="button"
               onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("color");
                 navigate("/signin")
-                setTimeout(() => toast.info('Logout!'), 1000);
+                toast.info('Logout!');
               }}
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >

@@ -3,6 +3,7 @@ import { useMyblogs } from "../hooks";
 import { MyblogCard } from "./MyblogCard";
 import { Skeleton } from "./Sketons/BlogsSkeleton";
 import { myblogs } from "../Store/Atoms";
+import '../App.css'
 
 export const Myblogs = () => {
   const blogs = useRecoilValue(myblogs);
@@ -20,7 +21,7 @@ export const Myblogs = () => {
 
   return (
     <div className="">
-      <div className="text-center font-medium text-3xl">Your Blogs</div>
+      <div className="text-center font-medium text-3xl ">Your Blogs</div>
       {blogs.map((e,i) => (
         <MyblogCard key={i}
           authorname={e.author.name}
