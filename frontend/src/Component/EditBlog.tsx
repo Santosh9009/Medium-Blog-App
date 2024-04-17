@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import img2 from "../assets/icons8-back-50.png";
 import { toast } from "react-toastify";
+import { currentDate } from "../hooks/Functions";
 
 interface EditBlogProps {
   id: string | undefined;
@@ -26,6 +27,7 @@ export const EditBlog: React.FC<EditBlogProps> = ({
   const [editedContent, setEditedContent] = useState(initialContent);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // for auto increase the height of the textarea 
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -35,25 +37,8 @@ export const EditBlog: React.FC<EditBlogProps> = ({
   }, [editedContent]);
 
   const handleSaveClick = async () => {
-    const currentDate = new Date();
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const newDate = `${
-      monthNames[currentDate.getMonth()]
-    } ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
 
+    const newDate = currentDate();
     const token = localStorage.getItem("token");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 

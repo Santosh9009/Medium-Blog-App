@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BlogSkeleton } from "../Component/Sketons/BlogSkeleton";
 import { useRecoilValue } from "recoil";
 import { allBlogs } from "../Store/Atoms";
+import { Spinner } from "../Component/Spinner";
 
 interface blog {
   title: string;
@@ -29,7 +29,7 @@ export const Blog = () => {
   if (!blog) {
     return (
       <div>
-        <BlogSkeleton />
+        <Spinner/>
       </div>
     );
   }

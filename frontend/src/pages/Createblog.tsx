@@ -4,6 +4,7 @@ import axios from "axios";
 import { Spinner } from "../Component/Spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { currentDate } from "../hooks/Functions";
 
 
 export const Createblog = () => {
@@ -21,25 +22,8 @@ export const Createblog = () => {
       toast.warning("Fields are Empty")
       return
     }
-    const currentDate = new Date();
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const newDate = `${
-      monthNames[currentDate.getMonth()]
-    } ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
-
+    
+    const newDate = currentDate(); 
     const token = localStorage.getItem("token");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     setLoading(true);

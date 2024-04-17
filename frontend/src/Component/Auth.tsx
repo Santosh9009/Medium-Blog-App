@@ -3,7 +3,7 @@ import { signuptype } from "@santosh_pati/medium-common";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
-import { getRandomColor } from "../assets/Color";
+import { getRandomColor } from "../hooks/Functions";
 import "../App.css";
 import { toast } from "react-toastify";
 import img from "../assets/icons8-back-50.png";
