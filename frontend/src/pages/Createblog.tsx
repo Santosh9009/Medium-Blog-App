@@ -5,6 +5,7 @@ import { Spinner } from "../Component/Spinner";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { currentDate } from "../hooks/Functions";
+import { BACKEND_URL } from "../config";
 
 
 export const Createblog = () => {
@@ -29,7 +30,7 @@ export const Createblog = () => {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:8787/api/v1/blog/add",
+        `${BACKEND_URL}/api/v1/blog/add`,
         {
           title: blog.title,
           content: blog.content,

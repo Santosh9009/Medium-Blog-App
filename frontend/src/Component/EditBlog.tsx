@@ -3,6 +3,7 @@ import axios from "axios";
 import img2 from "../assets/icons8-back-50.png";
 import { toast } from "react-toastify";
 import { currentDate } from "../hooks/Functions";
+import { BACKEND_URL } from "../config";
 
 interface EditBlogProps {
   id: string | undefined;
@@ -44,7 +45,7 @@ export const EditBlog: React.FC<EditBlogProps> = ({
 
     try {
       await axios.put(
-        "http://localhost:8787/api/v1/blog/update",
+        `${BACKEND_URL}/api/v1/blog/update`,
         {
           id: id,
           title: editedTitle,

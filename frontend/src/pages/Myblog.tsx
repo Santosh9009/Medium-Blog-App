@@ -7,6 +7,7 @@ import '../App.css'
 import { Spinner } from "../Component/Spinner";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../config";
 
 
 interface Blog {
@@ -43,7 +44,7 @@ export const Myblog: React.FC = () => {
     setLoad(true);
     try {
       await axios.delete(
-        `http://localhost:8787/api/v1/blog/delete/${id}`,
+        `${BACKEND_URL}/api/v1/blog/delete/${id}`,
         {
           headers: headers,
         }
