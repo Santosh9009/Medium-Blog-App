@@ -18,7 +18,7 @@ function handleclick():void{
 
 
   return (
-    <div onClick={handleclick} className="flex flex-col gap-1 my-5 w-[80%] md:w-[50%] mx-auto font-inter">
+    <div onClick={handleclick} className="flex flex-col gap-1 my-5 w-[85%] md:w-[50%] mx-auto font-inter">
       <div className="flex items-center justify-start gap-2 mb-3">
         <div className="flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-200 rounded-full mr-2">
           <span className="font-medium text-gray-600">
