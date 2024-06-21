@@ -1,18 +1,6 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { allBlogs } from "../Store/Atoms";
 import { Spinner } from "../Component/Spinner";
 import { useBlog } from "../hooks";
-
-interface blogType {
-  title: string;
-  content: string;
-  publishDate: string;
-  author: {
-    name: string;
-  };
-}
 
 export const Blog = () => {
   const { id } = useParams<{ id: string }>();
