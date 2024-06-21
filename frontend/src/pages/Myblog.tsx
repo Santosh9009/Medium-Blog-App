@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useBlog } from "../hooks";
-import img from '../assets/icons8-menu-vertical-64.png'
+import { useMyBlog } from "../hooks";
+import img from '../assets/icons8-menu-vertical-64.png';
 import { EditBlog } from "../Component/EditBlog";
-import '../App.css'
+import '../App.css';
 import { Spinner } from "../Component/Spinner";
+import { ConfirmModal } from "../Component/ConfimModal"; 
 import axios from "axios";
 import { toast } from "react-toastify";
 import { BACKEND_URL } from "../config";
-
 
 interface Blog {
   id: string;
@@ -19,17 +19,17 @@ interface Blog {
 
 export const Myblog: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { blog: initialBlog,loading} = useBlog(id || " ");
+  const { blog: initialBlog, loading } = useMyBlog(id || " ");
   const [editMode, setEditMode] = useState(false);
   const [blog, setBlog] = useState<Blog | null>(initialBlog || null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [ load, setLoad ] = useState(false);
+  const [load, setLoad] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // State for showing the modal
   const navigate = useNavigate();
-  
 
   useEffect(() => {
-    if(initialBlog){
-      setBlog(initialBlog)
+    if (initialBlog) {
+      setBlog(initialBlog);
     }
   }, [initialBlog]);
 
@@ -38,7 +38,12 @@ export const Myblog: React.FC = () => {
     setDropdownOpen(false);
   };
 
-  const handleDeleteOption = async() => {
+  const handleDeleteOption = () => {
+    setShowConfirmModal(true); // Show the confirmation modal
+    setDropdownOpen(false);
+  };
+
+  const handleDeleteConfirm = async () => {
     const token = localStorage.getItem("token");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     setLoad(true);
@@ -50,17 +55,18 @@ export const Myblog: React.FC = () => {
         }
       );
       setLoad(false);
-      navigate('/profile')
-      setTimeout(()=>toast.success("Deleted successfully!"),500)
+      navigate('/profile');
+      setTimeout(() => toast.success("Deleted successfully!"), 500);
     } catch (error) {
-      toast.error("Failed to update!");
+      toast.error("Failed to delete!");
+      setLoad(false);
     }
-    setDropdownOpen(false);
+    setShowConfirmModal(false); 
   };
 
   const handleSaveEdit = (editedTitle: string, editedContent: string, editedPublishDate?: string) => {
     setEditMode(false);
-    
+
     if (blog) {
       setBlog({
         ...blog,
@@ -72,7 +78,7 @@ export const Myblog: React.FC = () => {
   };
 
   if (loading || load) {
-    return <Spinner/>
+    return <Spinner />;
   }
 
   return (
@@ -81,15 +87,15 @@ export const Myblog: React.FC = () => {
         <div className="flex flex-col gap-10 fade-in">
           {editMode ? (
             <>
-            <EditBlog
-              setEditmode={setEditMode}
-              id={id}
-              initialTitle={blog?.title || ""}
-              initialContent={blog?.content || ""}
-              onSave={(editedTitle, editedContent, editedPublishDate) =>
-                handleSaveEdit(editedTitle, editedContent, editedPublishDate)
-              }
-            />
+              <EditBlog
+                setEditmode={setEditMode}
+                id={id}
+                initialTitle={blog?.title || ""}
+                initialContent={blog?.content || ""}
+                onSave={(editedTitle, editedContent, editedPublishDate) =>
+                  handleSaveEdit(editedTitle, editedContent, editedPublishDate)
+                }
+              />
             </>
           ) : (
             <>
@@ -109,13 +115,13 @@ export const Myblog: React.FC = () => {
                     <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg">
                       <button
                         onClick={handleEditOption}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white w-full text-left"
                       >
                         Edit
                       </button>
                       <button
                         onClick={handleDeleteOption}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-red-600 hover:text-white w-full text-left"
                       >
                         Delete
                       </button>
@@ -128,6 +134,14 @@ export const Myblog: React.FC = () => {
           )}
         </div>
       </div>
+
+      {showConfirmModal && (
+        <ConfirmModal
+          onConfirm={handleDeleteConfirm}
+          onCancel={() => setShowConfirmModal(false)}
+          message="Are you sure you want to delete this blog post?"
+        />
+      )}
     </div>
   );
 };

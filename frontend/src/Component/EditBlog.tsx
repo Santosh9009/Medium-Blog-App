@@ -4,7 +4,7 @@ import img2 from "../assets/icons8-back-50.png";
 import { toast } from "react-toastify";
 import { currentDate } from "../hooks/Functions";
 import { BACKEND_URL } from "../config";
-
+import '../App.css'
 interface EditBlogProps {
   id: string | undefined;
   initialTitle: string;
@@ -64,7 +64,7 @@ export const EditBlog: React.FC<EditBlogProps> = ({
   };
 
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <div className="flex justify-between">
         <img
           onClick={() => setEditmode(false)}
@@ -74,7 +74,7 @@ export const EditBlog: React.FC<EditBlogProps> = ({
         />
         <button
           onClick={handleSaveClick}
-          className="bg-green-600 text-white px-4 py-2 rounded-full font-medium font-sans hover:bg-green-800"
+          className="bg-green-600 text-white px-4 py-2 rounded-full font-medium font-sans hover:bg-green-800 bounce-in"
         >
           Publish
         </button>
@@ -89,8 +89,8 @@ export const EditBlog: React.FC<EditBlogProps> = ({
         ref={textareaRef}
         value={editedContent}
         onChange={(e) => setEditedContent(e.target.value)}
-        className="text-lg leading-loose focus:outline-none resize-none overflow-y-hidden h-full"
+        className="w-full text-lg leading-loose focus:outline-none resize-none overflow-y-hidden h-full"
       />
-    </>
+    </div>
   );
 };

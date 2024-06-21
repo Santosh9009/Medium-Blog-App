@@ -31,9 +31,3 @@ export const UserState = atom<user>({
   key:'UserState',
   default: {name:'', email:'',password:''} ,
 })
-
-
-
-
-
-

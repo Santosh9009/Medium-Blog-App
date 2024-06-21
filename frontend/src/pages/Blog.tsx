@@ -3,8 +3,9 @@ import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { allBlogs } from "../Store/Atoms";
 import { Spinner } from "../Component/Spinner";
+import { useBlog } from "../hooks";
 
-interface blog {
+interface blogType {
   title: string;
   content: string;
   publishDate: string;
@@ -15,17 +16,9 @@ interface blog {
 
 export const Blog = () => {
   const { id } = useParams<{ id: string }>();
-  const blogs = useRecoilValue(allBlogs);
-  const [blog, setBlog] = useState<blog>();
-  
-  useEffect(() => {
-    const post = blogs.find((e) => e.id === id);
-    if (post) {
-      setBlog(post);
-    }
-  },[blogs,id]);
+  const {blog, loading} = useBlog(id || "");
 
-  if (!blog) {
+  if (loading) {
     return (
       <div>
         <Spinner/>

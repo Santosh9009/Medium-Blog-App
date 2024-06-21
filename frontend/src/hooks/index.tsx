@@ -63,7 +63,7 @@ export const useMyblogs = () => {
   };
 };
 
-export const useBlog = (id:string)=>{
+export const useMyBlog = (id:string)=>{
   const blogs = useRecoilValue<Blog[]>(myblogs);
   const [loading, setLoading] = useState(true);
   const [blog , setblog] = useState<Blog>();
@@ -73,6 +73,15 @@ export const useBlog = (id:string)=>{
    if(blog){
     setblog(blog)
     setLoading(false);
+   }else{
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    axios.get(`${BACKEND_URL}/api/v1/blog/${id}`,{
+      headers: headers
+    }).then((res) => {
+    setblog(res.data.post);
+    setLoading(false);
+    });
    }
   }, []);
 
@@ -81,6 +90,39 @@ export const useBlog = (id:string)=>{
     loading,
   };
 }
+
+
+export const useBlog = (id:string)=>{
+  const blogs = useRecoilValue<Blog[]>(allBlogs);
+  const [loading, setLoading] = useState(true);
+  const [blog , setblog] = useState<Blog>();
+
+  useEffect(() => {
+   const blog = blogs.find(e=> e.id ===id)
+
+   if(blog){
+    setblog(blog)
+    setLoading(false);
+   }else{
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    axios.get(`${BACKEND_URL}/api/v1/blog/${id}`,{
+      headers: headers
+    }).then((res) => {
+    setblog(res.data.post);
+    setLoading(false);
+    });
+   }
+
+  }, []);
+
+  return {
+    blog,
+    loading,
+  };
+}
+
+
 
 export const useUser = ()=>{
 const  setUser = useSetRecoilState<user>(UserState);

@@ -43,3 +43,78 @@
     transform: translateX(0);
   }
 }
+
+.bounce-in {
+  opacity: 0;
+  animation: bounceInAnimation 0.5s ease-in forwards;
+}
+
+@keyframes bounceInAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+  70% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.pop-in {
+  opacity: 0;
+  animation: popInAnimation 0.5s ease-in-out forwards;
+}
+
+@keyframes popInAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.flip-in {
+  opacity: 0;
+  animation: flipInAnimation 0.5s ease-in forwards;
+}
+
+@keyframes flipInAnimation {
+  from {
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}
+
+
+.rotate-in {
+  opacity: 0;
+  animation: rotateInAnimation 0.5s ease-in forwards;
+}
+
+@keyframes rotateInAnimation {
+  from {
+    opacity: 0;
+    transform: rotate(180deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
